@@ -100,11 +100,8 @@
 %% INHERIT-OPTIONS: copy_stylesheet/2
 %% INHERIT-OPTIONS: stylesheet/1
 
-run(#doclet_gen{}=Cmd, Ctxt) ->
-    gen(Cmd#doclet_gen.sources,
-	Cmd#doclet_gen.app,
-	modules(Cmd),
-	Ctxt);
+run(#doclet_gen{sources = Sources, app = App, modules = Modules}, Ctxt) ->
+    gen(Sources, App, Modules, Ctxt);
 run(#doclet_toc{}=Cmd, Ctxt) ->
     toc(Cmd#doclet_toc.paths, Ctxt).
 
@@ -319,26 +316,28 @@ guess_encoding(File) ->
 write_file(Text, Dir, F) ->
     write_file(Text, Dir, F, F, auto).
 
+% Use erlang:apply/3 to get around xref/dialyzer warnings.
 write_file(Text, Dir, LastName, Name, Enc) ->
     %% edoc_lib:write_file/5 (with encoding support) was added in OTP R16B
     %% -- and removed in 18.0; we reuse the check to detect 18, since we don't
     %% -- care about pre-R16
-    case lists:member({write_file,5}, edoc_lib:module_info(exports)) of
+    Args = case erlang:function_exported(edoc_lib, write_file, 5) of
         true ->
-            edoc_lib:write_file(Text, Dir, LastName, '',
-                                [{encoding, encoding(Enc, Name)}]);
-        false ->
-            edoc_lib:write_file(Text, Dir, LastName,
-				[{encoding, encoding(Enc, Name)}])
-    end.
+            [Text, Dir, LastName, '', [{encoding, encoding(Enc, Name)}]];
+        _ ->
+            [Text, Dir, LastName, [{encoding, encoding(Enc, Name)}]]
+    end,
+    erlang:apply(edoc_lib, write_file, Args).
 
+% Use erlang:apply/3 to get around xref/dialyzer warnings.
 write_info_file(App, Modules, Dir) ->
-    case erlang:function_exported(edoc_lib, write_info_file, 4) of
-	true ->
-	    edoc_lib:write_info_file(App, [], Modules, Dir);
-	false ->
-	    edoc_lib:write_info_file(App, Modules, Dir)
-    end.
+    Args = case erlang:function_exported(edoc_lib, write_info_file, 4) of
+        true ->
+            [App, [], Modules, Dir];
+        _ ->
+            [App, Modules, Dir]
+    end,
+    erlang:apply(edoc_lib, write_info_file, Args).
 
 encoding(auto, Name) ->
     edoc_lib:read_encoding(Name, []);
@@ -517,7 +516,3 @@ toc(_Paths, _Ctxt) ->
     %% Env = Ctxt#context.env,
     %% app_index_file(Paths, Dir, Env, Opts).
 
-modules({doclet_gen,_,_,_,Ms,_}) ->  % pre-18
-    Ms;
-modules({doclet_gen,_,_,Ms}) ->  % since 18
-    Ms.

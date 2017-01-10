@@ -2,9 +2,30 @@
 
 # Edown - Markdown generated from Edoc #
 
-Copyright (c) 2014 Ulf Wiger
+Notice
+------
 
-__Authors:__ [`ulf@wiger.net`](mailto:ulf@wiger.net).
+___This is [Basho's](http://www.basho.com/) Revision of Edown___
+
+This repository is forked for use by Basho's products.
+It may or may not be suitable for general use.
+
+
+#### About Our Changes ####
+
+* Only [Rebar3](http://www.rebar3.org/) is supported.
+* All elements targeting [Rebar2](http://github.com/rebar/rebar/) have been removed.
+* It may diverge from the upstream repository.
+* It may be deprecated if/when products do not rely on it.
+
+
+
+#### If You Need the Original ####
+
+The original version can be found [here](http://github.com/uwiger/edown/).
+
+Copyright (c) 2014 Ulf Wiger.<br />
+Author: [`ulf@wiger.net`](mailto:ulf@wiger.net).
 
 Status:
 ------
@@ -91,22 +112,6 @@ incr(X) ->
 
 ```
 
-Rebar customizations
-====================
-A set of escripts can be found under
-[edown/priv/scripts/](http://github.com/uwiger/edown/blob/master/priv/scripts/), which
-can be used to customize the `rebar` built process. The
-[rebar.config.script](http://github.com/uwiger/edown/blob/master/priv/scripts/rebar.config.script)
-file should be copied into your application, next to `rebar.config`.
-It will sense if `doc` is a current target, and will then include
-`edown` in the `deps`; otherwise, it removes it. This way, you will
-not have to pull down `edown` unless you really want to build the
-docs. It will also locate edown along your path, in which case
-it doesn't need to pull it down again.
-
-The script will also start the `inets` application, so that you
-can include URLs as part of a `doc_path` option (see below).
-
 Links to other EDown-generated docs
 ===================================
 There is a way to configure Edoc/Edown to get URLs right even
@@ -160,9 +165,20 @@ markedoc
 The sed script bin/markedoc works in the opposite direction and converts
 your `README.md` to an `EDoc` file.
 
-See [bin/MARKEDOC-README.md](http://github.com/uwiger/edown/blob/master/bin/MARKEDOC-README.md).
+See [bin/MARKEDOC-README.md](http://github.com/basho/edown/blob/feature/riak-2903/rebar3/bin/MARKEDOC-README.md).
 
 **FreeBSD, Mac OS X**`$ sed -E -f markedoc.sed <markdown file> > <edoc file>`
 
 **Linux**`$ sed -r -f markedoc.sed <markdown file> > <edoc file>`
+
+
+## Modules ##
+
+
+<table width="100%" border="0" summary="list of modules">
+<tr><td><a href="http://github.com/basho/edown/blob/feature/riak-2903/rebar3/doc/edown_doclet.md" class="module">edown_doclet</a></td></tr>
+<tr><td><a href="http://github.com/basho/edown/blob/feature/riak-2903/rebar3/doc/edown_layout.md" class="module">edown_layout</a></td></tr>
+<tr><td><a href="http://github.com/basho/edown/blob/feature/riak-2903/rebar3/doc/edown_lib.md" class="module">edown_lib</a></td></tr>
+<tr><td><a href="http://github.com/basho/edown/blob/feature/riak-2903/rebar3/doc/edown_make.md" class="module">edown_make</a></td></tr>
+<tr><td><a href="http://github.com/basho/edown/blob/feature/riak-2903/rebar3/doc/edown_xmerl.md" class="module">edown_xmerl</a></td></tr></table>
 

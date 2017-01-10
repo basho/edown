@@ -1,9 +1,29 @@
-@author <ulf@wiger.net>
-@copyright 2014 Ulf Wiger
-
 @title Edown - Markdown generated from Edoc
 
 @doc
+Notice
+------
+
+<b><i>This is <a href="http://www.basho.com/">Basho's</a> Revision of Edown</i></b>
+
+This repository is forked for use by Basho's products.
+It may or may not be suitable for general use.
+
+<h4>About Our Changes</h4>
+<ul>
+  <li>Only <a href="http://www.rebar3.org/">Rebar3</a> is supported.</li>
+  <li>All elements targeting <a href="http://github.com/rebar/rebar/">Rebar2</a> have been removed.</li>
+  <li>It may diverge from the upstream repository.</li>
+  <li>It may be deprecated if/when products do not rely on it.</li>
+</ul>
+
+<h4>If You Need the Original</h4>
+
+The original version can be found <a href="http://github.com/uwiger/edown/">here</a>.
+
+Copyright (c) 2014 Ulf Wiger.<br />
+Author: <a href="mailto:ulf@wiger.net"><code>ulf@wiger.net</code></a>.
+
 Status:
 ------
 More-or-less readable Markdown can be generated.
@@ -78,22 +98,6 @@ incr(X) ->
   X + 1.
 </pre>
 
-
-Rebar customizations
-====================
-A set of escripts can be found under
-<a href="priv/scripts/">edown/priv/scripts/</a>, which
-can be used to customize the `rebar' built process. The
-<a href="priv/scripts/rebar.config.script">rebar.config.script</a>
-file should be copied into your application, next to `rebar.config'.
-It will sense if `doc' is a current target, and will then include
-`edown' in the `deps'; otherwise, it removes it. This way, you will
-not have to pull down `edown' unless you really want to build the
-docs. It will also locate edown along your path, in which case
-it doesn't need to pull it down again.
-
-The script will also start the `inets' application, so that you
-can include URLs as part of a `doc_path' option (see below).
 
 Links to other EDown-generated docs
 ===================================

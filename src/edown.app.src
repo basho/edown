@@ -16,14 +16,17 @@
 %%==============================================================================
 
 {application, edown,
- [
-  {vsn, git},
-  {description, "Markdown extension for EDoc"},
-  {applications, [kernel, stdlib, edoc]},
-  {registered, []},
-  {env, []},
+[
+    {description,   "Markdown extension for EDoc"},
+    {vsn,           "git"},
+    {applications,  [kernel, stdlib, edoc, xmerl]},
+    {registered,    []},
+    {env,           []},
 
-  {maintainers, ["Ulf Wiger"]},
-  {licenses, ["Apache 2.0"]},
-  {links, [{"Github", "https://github.com/uwiger/edown"}]}
- ]}.
+    {maintainers,   ["Basho Technologies, Inc.", "Ulf Wiger"]},
+    {licenses,      ["Apache 2.0"]},
+    {links,         [
+        {"Github", "https://github.com/basho/edown"},
+        {"Github", "https://github.com/uwiger/edown"}
+    ]}
+]}.
