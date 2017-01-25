@@ -46,6 +46,9 @@
 -define(FUNCTIONS_TITLE, "Function Details").
 -define(FUNCTIONS_LABEL, "functions").
 
+-dialyzer(no_opaque).
+-dialyzer(no_return).
+-dialyzer(no_unused).
 
 %% @doc The layout function.
 %%
